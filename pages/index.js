@@ -140,20 +140,21 @@ export default function AdminPage() {
 
   // ---------------- ADMIN PANEL UI ----------------
   return (
-    <div style={{ maxWidth: 700, margin: "40px auto", fontFamily: "Arial, sans-serif", padding: 20 }}>
+    
+    <div style={{ maxWidth: 700, margin: "40px auto", fontFamily: "Arial, sans-serif", padding: 20, background: "#f3c1c1ff", borderRadius: 10, boxShadow: "0 0 20px rgba(0,0,0,0.1)" }}>
       <button style={{ marginBottom: 20, padding: "5px 10px" }} onClick={() => signOut()}>Logout</button>
-      <h1>Admin Panel</h1>
+      <h1 style={{textAlign: "center" }}>Admin Panel</h1>
 
       <h2>Add Wish</h2>
-      <input value={title} onChange={(e) => setTitle(e.target.value)} placeholder="Title" style={{ width: "100%", padding: 10, margin: "10px 0", borderRadius: 5, border: "1px solid #ccc" }} />
-      <textarea value={description} onChange={(e) => setDescription(e.target.value)} placeholder="Description" style={{ width: "100%", padding: 10, margin: "10px 0", borderRadius: 5, border: "1px solid #ccc" }} />
+      <input value={title} onChange={(e) => setTitle(e.target.value)} placeholder="Title" style={{ width: "97%", padding: 10, margin: "10px 0", borderRadius: 5, border: "1px solid #ccc" }} />
+      <textarea value={description} onChange={(e) => setDescription(e.target.value)} placeholder="Description" style={{ width: "97%", padding: 10, margin: "10px 0", borderRadius: 5, border: "1px solid #ccc"}} />
       <div style={{ marginBottom: "20px" }}>
         <label style={{ marginRight: "20px" }}>Choose or Create Category</label>
         <select value={category} onChange={(e) => setCategory(e.target.value)} disabled={newCategory.length > 0} style={{ padding: 8, marginBottom: 20, borderRadius: 5, border: "1px solid #ccc" }}>
           <option value="">Select a Category</option>
           {categories.map(cat => <option key={cat} value={cat}>{cat}</option>)}
         </select>
-        <input type="text" placeholder="New Category" value={newCategory} onChange={(e) => setNewCategory(e.target.value)} style={{ width: "100%", padding: 10, margin: "10px 0", borderRadius: 5, border: "1px solid #ccc" }} />
+        <input type="text" placeholder="New Category" value={newCategory} onChange={(e) => setNewCategory(e.target.value)} style={{ width: "97%", padding: 10, margin: "10px 0", borderRadius: 5, border: "1px solid #ccc" }} />
       </div>
       <button onClick={addWish} style={{ padding: "10px 15px", background: "#43b14cff", color: "white", border: "none", borderRadius: 5, cursor: "pointer" }}>Add Wish</button>
 
@@ -170,11 +171,11 @@ export default function AdminPage() {
                 {wish.quantity && <em>Quantity: {wish.quantity}</em>}
               </div>
               <div>
-                <button style={{ padding: "5px 10px", marginRight: 5 }} onClick={() => openEditModal(wish)}>Edit</button>
+                <button style={{ padding: "5px 10px", marginRight: 5,background: "#f7dd49ff", borderRadius: 5}} onClick={() => openEditModal(wish)}>Edit</button>
                 {/* {wish.taken
                   ? <button style={{ padding: "5px 10px", marginRight: 5 }} onClick={() => handleMarkUntakenClick(wish)}>Mark Untaken</button>
                   : <button style={{ padding: "5px 10px", marginRight: 5 }} onClick={() => handleMarkTaken(wish)}>Mark Taken</button>} */}
-                <button style={{ padding: "5px 10px", background: "red", color: "#fff" }} onClick={() => openDeleteModal(wish)}>Delete</button>
+                <button style={{ padding: "5px 10px", background: "#f74949ff", color: "#fff", borderRadius: 5 }} onClick={() => openDeleteModal(wish)}>Delete</button>
               </div>
             </div>
           ))}
@@ -186,8 +187,8 @@ export default function AdminPage() {
         <div style={{ position: "fixed", top: 0, left: 0, right: 0, bottom: 0, background: "rgba(0,0,0,0.5)", display: "flex", justifyContent: "center", alignItems: "center" }}>
           <div style={{ background: "#fff", padding: 20, borderRadius: 8, minWidth: 300, textAlign: "center" }}>
             <p>Delete <strong>{wishToDelete.title}</strong>?</p>
-            <button style={{ margin: 10, padding: "10px 15px", background: "#0070f3", color: "white", border: "none", borderRadius: 5 }} onClick={deleteWish}>Yes</button>
-            <button style={{ margin: 10, padding: "10px 15px", background: "#0070f3", color: "white", border: "none", borderRadius: 5 }} onClick={() => setDeleteModalOpen(false)}>Cancel</button>
+            <button style={{ margin: 10, padding: "10px 15px", background: "#43b14cff", color: "white", border: "none", borderRadius: 5 }} onClick={deleteWish}>Yes</button>
+            <button style={{ margin: 10, padding: "10px 15px", background: "#f57474ff", color: "white", border: "none", borderRadius: 5 }} onClick={() => setDeleteModalOpen(false)}>Cancel</button>
           </div>
         </div>
       )}
@@ -339,13 +340,13 @@ export default function AdminPage() {
 
       <div style={{ textAlign: "center", marginTop: 20 }}>
         <button
-          style={{ padding: "10px 20px", marginRight: 10, background: "#0070f3", color: "#fff", border: "none", borderRadius: 5, cursor: "pointer" }}
+          style={{ padding: "10px 20px", marginRight: 10, background: "#43b14cff", color: "#fff", border: "none", borderRadius: 5, cursor: "pointer" }}
           onClick={saveEdit}
         >
           Save
         </button>
         <button
-          style={{ padding: "10px 20px", background: "#ccc", color: "#000", border: "none", borderRadius: 5, cursor: "pointer" }}
+          style={{ padding: "10px 20px", background: "#f19999ff", color: "#000", border: "none", borderRadius: 5, cursor: "pointer" }}
           onClick={() => setEditModalOpen(false)}
         >
           Cancel
