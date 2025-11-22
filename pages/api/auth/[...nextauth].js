@@ -14,11 +14,12 @@ export default NextAuth({
         const password = credentials.password?.trim();
 
         if (email === process.env.ADMIN_EMAIL && password === process.env.ADMIN_PASSWORD) {
-          return { id: "1", email, name: "Admin", role: "admin" };
+          // Log the credentials to ensure it's correct
+          console.log('Authenticated:', { email, role: 'admin' });
+          return { id: "1", email, name: "Admin", role: 'admin' }; // Add role
         }
 
-        console.log("Failed login attempt:", credentials); // DEBUG
-        return null;
+        return null; // invalid credentials
       },
     }),
   ],
@@ -26,11 +27,15 @@ export default NextAuth({
   session: { strategy: "jwt" },
   callbacks: {
     async jwt({ token, user }) {
-      if (user) token.role = user.role;
+      if (user) {
+        console.log('JWT Callback:', user); // Log the user object to verify the role
+        token.role = user.role; // Add the role to the JWT token
+      }
       return token;
     },
     async session({ session, token }) {
-      session.user.role = token.role;
+      session.user.role = token.role; // Ensure role is on session
+      console.log('Session Callback:', session); // Log the session object to verify role
       return session;
     },
   },
