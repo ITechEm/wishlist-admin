@@ -16,7 +16,7 @@ export default function AdminPage() {
     });
 
     if (res.error) {
-      setError("Parolă sau Email incorect");
+      setError("Email sau Parolă incorectă! Raport trimis!");
     }
   };
 
@@ -203,22 +203,31 @@ export default function AdminPage() {
           placeholder="Email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-          style={{ width: "80%", padding: 10, margin: "10px 0", borderRadius: 5, border: "1px solid #ccc", fontFamily: "Inknut Antiqua, serif",}}
+          style={{ width: "80%", padding: 10, margin: "10px 0", borderRadius: 5, border: "1px solid #ccc", fontFamily: "Inknut Antiqua, serif"}}
         />
 
         <input
+        
           type="password"
           placeholder="Parolă"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
-          style={{ width: "80%", padding: 10, margin: "10px 0", borderRadius: 5, border: "1px solid #ccc",fontFamily: "Inknut Antiqua, serif",}}
+          style={{ width: "80%", padding: 10, margin: "10px 0", borderRadius: 5, border: "1px solid #ccc",fontFamily: "Inknut Antiqua, serif"}}
         />
 
         {error && <p style={{ color: "red", marginBottom: 10 }}>{error}</p>}
 
         <button 
-          style={{  width: "50%", background: "linear-gradient(135deg, #518b92ff, #f7a1a1, #6fa8dc)", border: "none", borderRadius: 5, cursor: "pointer", marginTop: 10,fontFamily: "Inknut Antiqua, serif", color: "#000000ff", fontWeight: "bold", boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",}}
+          style={{  width: "50%", background: "linear-gradient(135deg, #518b92ff, #f7a1a1, #6fa8dc)", border: "none", borderRadius: 5, cursor: "pointer", marginTop: 10,fontFamily: "Inknut Antiqua, serif", color: "#000000ff", fontWeight: "bold", boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)", transition: "all 0.3s ease", boxShadow: "0 4px 12px rgba(0,0,0,0.1)",}}
           onClick={handleLogin}
+          onMouseEnter={(e) => {
+          e.currentTarget.style.transform = "translateY(-3px)";
+          e.currentTarget.style.boxShadow = "0 6px 16px rgba(0,0,0,0.15)";
+        }}
+        onMouseLeave={(e) => {
+          e.currentTarget.style.transform = "translateY(0)";
+          e.currentTarget.style.boxShadow = "0 4px 12px rgba(0,0,0,0.1)";
+        }}
         >
           <h3>Conectează-te</h3>
         </button>
@@ -238,10 +247,29 @@ export default function AdminPage() {
       }}
     >
       <button
-        style={{ marginBottom: 20, padding: "5px 10px" }}
         onClick={() => signOut()}
+        style={{
+          marginBottom: 20,
+          padding: "10px 20px",
+          background: "linear-gradient(135deg, #ff6b6b, #f06595)",
+          color: "#000000ff",
+          fontWeight: "bold",
+          border: "none",
+          borderRadius: 8,
+          cursor: "pointer",
+          transition: "all 0.3s ease",
+          boxShadow: "0 4px 12px rgba(0,0,0,0.1)",
+        }}
+        onMouseEnter={(e) => {
+          e.currentTarget.style.transform = "translateY(-2px)";
+          e.currentTarget.style.boxShadow = "0 6px 16px rgba(0,0,0,0.15)";
+        }}
+        onMouseLeave={(e) => {
+          e.currentTarget.style.transform = "translateY(0)";
+          e.currentTarget.style.boxShadow = "0 4px 12px rgba(0,0,0,0.1)";
+        }}
       >
-        Ieșire din Admin Panel
+        Logout
       </button>
       <h1 style={{ textAlign: "center",fontFamily: "Inknut Antiqua, serif", }}>Admin Panel</h1>
 
@@ -357,14 +385,24 @@ export default function AdminPage() {
       <button
         onClick={addWish}
         style={{
-          fontFamily: "Inknut Antiqua, serif",
-          padding: "10px 15px",
-          background: "#43b14cff",
-          color: "white",
+          marginBottom: 20,
+          padding: "10px 20px",
+          background: "linear-gradient(135deg, #a1ff6bff, #f0db65ff)",
+          color: "#000000ff",
+          fontWeight: "bold",
           border: "none",
-          borderRadius: 5,
+          borderRadius: 8,
           cursor: "pointer",
-          marginBottom: 30,
+          transition: "all 0.3s ease",
+          boxShadow: "0 4px 12px rgba(0,0,0,0.1)",
+        }}
+        onMouseEnter={(e) => {
+          e.currentTarget.style.transform = "translateY(-2px)";
+          e.currentTarget.style.boxShadow = "0 6px 16px rgba(0,0,0,0.15)";
+        }}
+        onMouseLeave={(e) => {
+          e.currentTarget.style.transform = "translateY(0)";
+          e.currentTarget.style.boxShadow = "0 4px 12px rgba(0,0,0,0.1)";
         }}
       >
         Adaugă Dorință
@@ -387,23 +425,23 @@ export default function AdminPage() {
                 background: wish.taken ? "linear-gradient(135deg, #ffe6e6, #cec4c446, #ac828231)" : "linear-gradient(135deg, #f5c2c281, #fff, #f8dddd80)",
                 borderLeft: wish.taken
                   ? "5px solid red"
-                  : "5px solid #0070f3",
+                  : "5px solid #69ca49ff",
                 display: "flex",
                 justifyContent: "space-between",
                 alignItems: "center",
               }}
             >
-              <div style={{fontFamily: "Inknut Antiqua, serif"}}>
+              <div style={{fontFamily: "Inknut Antiqua, serif", flexDirection: "column", flex: "1 1 auto", marginRight: 20 }}>
                 <strong>{wish.title}</strong>
                 <br />
-                <small>{wish.description}</small>
+                <small style={{flex: "1 1 auto", wordBreak: "break-word"}}>{wish.description}</small>
                 <br />
                 {wish.takenBy && <em>Preluat de: {wish.takenBy}</em>}
                 <br />
                 {wish.quantity && <em>Cantitate: {wish.quantity}</em>}
               </div>
 
-              <div>
+              <div >
                 <button
                   style={{
                     fontFamily: "Inknut Antiqua, serif",
@@ -411,6 +449,7 @@ export default function AdminPage() {
                     marginRight: 5,
                     background: "#f7dd49ff",
                     borderRadius: 5,
+                    flexDirection: "column", flex: "1 1 auto",
                   }}
                   onClick={() => openEditModal(wish)}
                 >
@@ -424,6 +463,7 @@ export default function AdminPage() {
                     background: "#f74949ff",
                     color: "#fff",
                     borderRadius: 5,
+                    
                   }}
                   onClick={() => openDeleteModal(wish)}
                 >
@@ -483,65 +523,6 @@ export default function AdminPage() {
                 borderRadius: 5,
               }}
               onClick={() => setDeleteModalOpen(false)}
-            >
-              Anulează
-            </button>
-          </div>
-        </div>
-      )}
-
-      {confirmModalOpen && (
-        <div
-          style={{
-            fontFamily: "Inknut Antiqua, serif",
-            position: "fixed",
-            inset: 0,
-            background: "rgba(0,0,0,0.5)",
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-          }}
-        >
-          <div
-            style={{
-              fontFamily: "Inknut Antiqua, serif",
-              background: "#fff",
-              padding: 20,
-              borderRadius: 8,
-              minWidth: 300,
-              textAlign: "center",
-            }}
-          >
-            <p>
-              Mark <strong>{wishToMarkUntaken.title}</strong> as untaken?
-            </p>
-
-            <button
-              style={{
-                fontFamily: "Inknut Antiqua, serif",
-                margin: 10,
-                padding: "10px 15px",
-                background: "#0070f3",
-                color: "white",
-                border: "none",
-                borderRadius: 5,
-              }}
-              onClick={confirmMarkUntaken}
-            >
-              Da
-            </button>
-
-            <button
-              style={{
-                fontFamily: "Inknut Antiqua, serif",
-                margin: 10,
-                padding: "10px 15px",
-                background: "#0070f3",
-                color: "white",
-                border: "none",
-                borderRadius: 5,
-              }}
-              onClick={() => setConfirmModalOpen(false)}
             >
               Anulează
             </button>
