@@ -9,7 +9,7 @@ export default NextAuth({
       name: "Credentials",
       credentials: {
         email: { label: "Email", type: "text" },
-        password: { label: "Password", type: "password" },
+        password: { label: "Parolă", type: "password" },
       },
       async authorize(credentials) {
         try {
@@ -17,8 +17,8 @@ export default NextAuth({
           const adminPass = process.env.ADMIN_PASSWORD;
 
           if (!adminEmail || !adminPass) {
-            console.error("Admin email or password not set in env!");
-            return null; // fail gracefully
+            console.error("Email sau Parolă Admin nu sunt corecte! Raport trimis!");
+            return null;
           }
 
           if (
@@ -28,7 +28,7 @@ export default NextAuth({
             return { email: credentials.email };
           }
 
-          return null; // invalid login
+          return null; 
         } catch (err) {
           console.error("Error in authorize:", err);
           return null;

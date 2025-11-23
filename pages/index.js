@@ -4,8 +4,6 @@ import { useSession, signIn, signOut } from "next-auth/react";
 export default function AdminPage() {
   const { data: session, status } = useSession();
   const loading = status === "loading";
-
-  // ---------------- LOGIN HOOKS ----------------
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
@@ -18,11 +16,10 @@ export default function AdminPage() {
     });
 
     if (res.error) {
-      setError("Invalid email or password");
+      setError("Parolă sau Email incorect");
     }
   };
 
-  // ---------------- ADMIN PANEL HOOKS ----------------
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [category, setCategory] = useState("");
@@ -35,7 +32,6 @@ export default function AdminPage() {
   const [confirmModalOpen, setConfirmModalOpen] = useState(false);
   const [wishToMarkUntaken, setWishToMarkUntaken] = useState(null);
 
-  // ---------------- EDIT MODAL HOOKS ----------------
   const [editModalOpen, setEditModalOpen] = useState(false);
   const [wishToEdit, setWishToEdit] = useState(null);
   const [editTitle, setEditTitle] = useState("");
@@ -45,7 +41,6 @@ export default function AdminPage() {
   const [editTaken, setEditTaken] = useState(false);
   const [editTakenBy, setEditTakenBy] = useState("");
 
-  // ---------------- CATEGORY EDIT/DELETE ----------------
   const [editCategoryModalOpen, setEditCategoryModalOpen] = useState(false);
   const [categoryToEdit, setCategoryToEdit] = useState("");
   const [newCategoryName, setNewCategoryName] = useState("");
@@ -53,7 +48,6 @@ export default function AdminPage() {
   const [deleteCategoryModalOpen, setDeleteCategoryModalOpen] = useState(false);
   const [categoryToDelete, setCategoryToDelete] = useState("");
 
-  // ---------------- LOAD WISHES ----------------
   const loadWishes = async () => {
     if (!session) return;
     const res = await fetch("/api/wishes");
@@ -66,7 +60,6 @@ export default function AdminPage() {
     if (session) loadWishes();
   }, [session]);
 
-  // ---------------- FUNCTIONS ----------------
   const addWish = async () => {
     if (!title || (!category && !newCategory)) return alert("Title and Category required");
 
@@ -197,43 +190,41 @@ export default function AdminPage() {
           margin: "100px auto",
           padding: 20,
           textAlign: "center",
-          fontFamily: "Arial",
-          background: "#fff",
+          fontFamily: "Inknut Antiqua, serif",
+          background: "linear-gradient(135deg, #f7a1a1, #ffd6d6, #925151)",
           borderRadius: 10,
           boxShadow: "0 0 20px rgba(0,0,0,0.1)",
         }}
       >
-        <h2>Admin Login</h2>
+        <h2>Admin Panel Listă Dorințe</h2>
 
         <input
           type="text"
           placeholder="Email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-          style={{ width: "80%", padding: 10, margin: "10px 0", borderRadius: 5, border: "1px solid #ccc" }}
+          style={{ width: "80%", padding: 10, margin: "10px 0", borderRadius: 5, border: "1px solid #ccc", fontFamily: "Inknut Antiqua, serif",}}
         />
 
         <input
           type="password"
-          placeholder="Password"
+          placeholder="Parolă"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
-          style={{ width: "80%", padding: 10, margin: "10px 0", borderRadius: 5, border: "1px solid #ccc" }}
+          style={{ width: "80%", padding: 10, margin: "10px 0", borderRadius: 5, border: "1px solid #ccc",fontFamily: "Inknut Antiqua, serif",}}
         />
 
         {error && <p style={{ color: "red", marginBottom: 10 }}>{error}</p>}
 
-        <button
-          style={{ padding: "10px 15px", width: "50%", background: "#0070f3", color: "white", border: "none", borderRadius: 5, cursor: "pointer", marginTop: 10 }}
+        <button 
+          style={{  width: "50%", background: "linear-gradient(135deg, #518b92ff, #f7a1a1, #6fa8dc)", border: "none", borderRadius: 5, cursor: "pointer", marginTop: 10,fontFamily: "Inknut Antiqua, serif", color: "#000000ff", fontWeight: "bold", boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",}}
           onClick={handleLogin}
         >
-          Sign in
+          <h3>Conectează-te</h3>
         </button>
       </div>
     );
   }
-
-  // ---------------- ADMIN PANEL UI ----------------
   return (
     <div
       style={{
@@ -241,7 +232,7 @@ export default function AdminPage() {
         margin: "40px auto",
         fontFamily: "Arial, sans-serif",
         padding: 20,
-        background: "#f3c1c1ff",
+        background: "linear-gradient(135deg, #f7a1a1, #ffd6d6, #925151)",
         borderRadius: 10,
         boxShadow: "0 0 20px rgba(0,0,0,0.1)",
       }}
@@ -250,19 +241,18 @@ export default function AdminPage() {
         style={{ marginBottom: 20, padding: "5px 10px" }}
         onClick={() => signOut()}
       >
-        Logout
+        Ieșire din Admin Panel
       </button>
+      <h1 style={{ textAlign: "center",fontFamily: "Inknut Antiqua, serif", }}>Admin Panel</h1>
 
-      <h1 style={{ textAlign: "center" }}>Admin Panel</h1>
-
-      {/* --- ADD WISH --- */}
-      <h2>Add Wish</h2>
+      <h2 style={{fontFamily: "Inknut Antiqua, serif", }}>Adaugă dorință</h2>
 
       <input
         value={title}
         onChange={(e) => setTitle(e.target.value)}
-        placeholder="Title"
+        placeholder="Titlu"
         style={{
+          fontFamily: "Inknut Antiqua, serif",
           width: "97%",
           padding: 10,
           margin: "10px 0",
@@ -274,8 +264,9 @@ export default function AdminPage() {
       <textarea
         value={description}
         onChange={(e) => setDescription(e.target.value)}
-        placeholder="Description"
+        placeholder="Descriere"
         style={{
+          fontFamily: "Inknut Antiqua, serif",
           width: "97%",
           padding: 10,
           margin: "10px 0",
@@ -285,8 +276,8 @@ export default function AdminPage() {
       />
 
       <div style={{ marginBottom: "20px" }}>
-        <label style={{ marginRight: "20px" }}>
-          Choose or Create Category
+        <label style={{ marginRight: "20px", marginBottom: "10px", display: "block",fontFamily: "Inknut Antiqua, serif" }}>
+          Alege sau creează o Categorie
         </label>
 
         <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
@@ -295,13 +286,14 @@ export default function AdminPage() {
             onChange={(e) => setCategory(e.target.value)}
             disabled={newCategory.length > 0}
             style={{
+              fontFamily: "Inknut Antiqua, serif",
               padding: 8,
               marginBottom: 20,
               borderRadius: 5,
               border: "1px solid #ccc",
             }}
           >
-            <option value="">Select a Category</option>
+            <option style={{fontFamily: "Inknut Antiqua, serif"}} value="">Selectează o categorie</option>
             {categories.map((cat) => (
               <option key={cat} value={cat}>
                 {cat}
@@ -313,6 +305,7 @@ export default function AdminPage() {
             <>
               <button
                 style={{
+                  fontFamily: "Inknut Antiqua, serif",
                   padding: "5px 10px",
                   background: "#f7dd49",
                   borderRadius: 5,
@@ -323,11 +316,12 @@ export default function AdminPage() {
                   setEditCategoryModalOpen(true);
                 }}
               >
-                Edit
+                Editează
               </button>
 
               <button
                 style={{
+                  fontFamily: "Inknut Antiqua, serif",
                   padding: "5px 10px",
                   background: "#f74949",
                   color: "#fff",
@@ -338,7 +332,7 @@ export default function AdminPage() {
                   setDeleteCategoryModalOpen(true);
                 }}
               >
-                Delete
+                Șterge
               </button>
             </>
           )}
@@ -346,10 +340,11 @@ export default function AdminPage() {
 
         <input
           type="text"
-          placeholder="New Category"
+          placeholder="Creează o categorie nouă"
           value={newCategory}
           onChange={(e) => setNewCategory(e.target.value)}
           style={{
+            fontFamily: "Inknut Antiqua, serif",
             width: "97%",
             padding: 10,
             margin: "10px 0",
@@ -362,32 +357,34 @@ export default function AdminPage() {
       <button
         onClick={addWish}
         style={{
+          fontFamily: "Inknut Antiqua, serif",
           padding: "10px 15px",
           background: "#43b14cff",
           color: "white",
           border: "none",
           borderRadius: 5,
           cursor: "pointer",
+          marginBottom: 30,
         }}
       >
-        Add Wish
+        Adaugă Dorință
       </button>
 
-      {/* --- EXISTING WISHES --- */}
-      <h2>Existing Wishes</h2>
+      <h2 style={{fontFamily: "Inknut Antiqua, serif"}}>Dorințe Existente</h2>
 
       {groupWishesByCategory().map(({ category, wishes }) => (
         <div key={category}>
-          <h3 style={{ color: "#0070f3" }}>{category}</h3>
+          <h3 style={{ color: "#000000ff" }}>{category}</h3>
 
           {wishes.map((wish) => (
             <div
               key={wish._id}
               style={{
+                fontFamily: "Inknut Antiqua, serif",
                 margin: "10px 0",
                 padding: 15,
                 borderRadius: 8,
-                background: wish.taken ? "#ffe6e6" : "#fff",
+                background: wish.taken ? "linear-gradient(135deg, #ffe6e6, #cec4c446, #ac828231)" : "linear-gradient(135deg, #f5c2c281, #fff, #f8dddd80)",
                 borderLeft: wish.taken
                   ? "5px solid red"
                   : "5px solid #0070f3",
@@ -396,19 +393,20 @@ export default function AdminPage() {
                 alignItems: "center",
               }}
             >
-              <div>
+              <div style={{fontFamily: "Inknut Antiqua, serif"}}>
                 <strong>{wish.title}</strong>
                 <br />
                 <small>{wish.description}</small>
                 <br />
-                {wish.takenBy && <em>Taken by: {wish.takenBy}</em>}
+                {wish.takenBy && <em>Preluat de: {wish.takenBy}</em>}
                 <br />
-                {wish.quantity && <em>Quantity: {wish.quantity}</em>}
+                {wish.quantity && <em>Cantitate: {wish.quantity}</em>}
               </div>
 
               <div>
                 <button
                   style={{
+                    fontFamily: "Inknut Antiqua, serif",
                     padding: "5px 10px",
                     marginRight: 5,
                     background: "#f7dd49ff",
@@ -416,11 +414,12 @@ export default function AdminPage() {
                   }}
                   onClick={() => openEditModal(wish)}
                 >
-                  Edit
+                  Editează
                 </button>
 
                 <button
                   style={{
+                    fontFamily: "Inknut Antiqua, serif",
                     padding: "5px 10px",
                     background: "#f74949ff",
                     color: "#fff",
@@ -428,7 +427,7 @@ export default function AdminPage() {
                   }}
                   onClick={() => openDeleteModal(wish)}
                 >
-                  Delete
+                  Șterge
                 </button>
               </div>
             </div>
@@ -436,7 +435,6 @@ export default function AdminPage() {
         </div>
       ))}
 
-      {/* --- DELETE WISH MODAL --- */}
       {deleteModalOpen && (
         <div
           style={{
@@ -458,10 +456,11 @@ export default function AdminPage() {
             }}
           >
             <p>
-              Delete <strong>{wishToDelete.title}</strong>?
+              Ștergi dorința <strong>{wishToDelete.title}</strong>?
             </p>
             <button
               style={{
+                fontFamily: "Inknut Antiqua, serif",
                 margin: 10,
                 padding: "10px 15px",
                 background: "#43b14cff",
@@ -471,10 +470,11 @@ export default function AdminPage() {
               }}
               onClick={deleteWish}
             >
-              Yes
+              Da
             </button>
             <button
               style={{
+                fontFamily: "Inknut Antiqua, serif",
                 margin: 10,
                 padding: "10px 15px",
                 background: "#f57474ff",
@@ -484,16 +484,16 @@ export default function AdminPage() {
               }}
               onClick={() => setDeleteModalOpen(false)}
             >
-              Cancel
+              Anulează
             </button>
           </div>
         </div>
       )}
 
-      {/* --- UNTAKEN MODAL --- */}
       {confirmModalOpen && (
         <div
           style={{
+            fontFamily: "Inknut Antiqua, serif",
             position: "fixed",
             inset: 0,
             background: "rgba(0,0,0,0.5)",
@@ -504,6 +504,7 @@ export default function AdminPage() {
         >
           <div
             style={{
+              fontFamily: "Inknut Antiqua, serif",
               background: "#fff",
               padding: 20,
               borderRadius: 8,
@@ -517,6 +518,7 @@ export default function AdminPage() {
 
             <button
               style={{
+                fontFamily: "Inknut Antiqua, serif",
                 margin: 10,
                 padding: "10px 15px",
                 background: "#0070f3",
@@ -526,11 +528,12 @@ export default function AdminPage() {
               }}
               onClick={confirmMarkUntaken}
             >
-              Yes
+              Da
             </button>
 
             <button
               style={{
+                fontFamily: "Inknut Antiqua, serif",
                 margin: 10,
                 padding: "10px 15px",
                 background: "#0070f3",
@@ -540,16 +543,16 @@ export default function AdminPage() {
               }}
               onClick={() => setConfirmModalOpen(false)}
             >
-              Cancel
+              Anulează
             </button>
           </div>
         </div>
       )}
 
-      {/* --- EDIT WISH MODAL --- */}
       {editModalOpen && (
         <div
           style={{
+            fontFamily: "Inknut Antiqua, serif",
             position: "fixed",
             inset: 0,
             background: "rgba(0,0,0,0.5)",
@@ -561,6 +564,7 @@ export default function AdminPage() {
         >
           <div
             style={{
+              fontFamily: "Inknut Antiqua, serif",
               background: "#fff",
               padding: 30,
               borderRadius: 10,
@@ -570,25 +574,27 @@ export default function AdminPage() {
               textAlign: "left",
             }}
           >
-            <h2 style={{ textAlign: "center", marginBottom: 20 }}>
-              Edit Wish
+            <h2 style={{ textAlign: "center", marginBottom: 20,fontFamily: "Inknut Antiqua, serif"}}>
+              Editează Dorința
             </h2>
 
             <div style={{ marginBottom: 15 }}>
               <label
                 style={{
+                  fontFamily: "Inknut Antiqua, serif",
                   fontWeight: "bold",
                   display: "block",
                   marginBottom: 5,
                 }}
               >
-                Title
+                Titlul
               </label>
               <input
                 type="text"
                 value={editTitle}
                 onChange={(e) => setEditTitle(e.target.value)}
                 style={{
+                  fontFamily: "Inknut Antiqua, serif",
                   width: "100%",
                   padding: 8,
                   borderRadius: 5,
@@ -600,17 +606,19 @@ export default function AdminPage() {
             <div style={{ marginBottom: 15 }}>
               <label
                 style={{
+                  fontFamily: "Inknut Antiqua, serif",
                   fontWeight: "bold",
                   display: "block",
                   marginBottom: 5,
                 }}
               >
-                Description
+                Descrierea
               </label>
               <textarea
                 value={editDescription}
                 onChange={(e) => setEditDescription(e.target.value)}
                 style={{
+                  fontFamily: "Inknut Antiqua, serif",
                   width: "100%",
                   padding: 8,
                   borderRadius: 5,
@@ -620,15 +628,16 @@ export default function AdminPage() {
               />
             </div>
 
-            <div style={{ marginBottom: 15 }}>
+            <div style={{ marginBottom: 15, fontFamily: "Inknut Antiqua, serif" }}>
               <label
                 style={{
+                  fontFamily: "Inknut Antiqua, serif",
                   fontWeight: "bold",
                   display: "block",
                   marginBottom: 5,
                 }}
               >
-                Quantity
+                Cantitatea
               </label>
 
               <div style={{ display: "flex", alignItems: "center" }}>
@@ -637,6 +646,7 @@ export default function AdminPage() {
                   value={editQuantity}
                   onChange={(e) => setEditQuantity(e.target.value)}
                   style={{
+                    fontFamily: "Inknut Antiqua, serif",
                     textAlign: "center",
                     padding: 8,
                     borderRadius: 5,
@@ -651,6 +661,7 @@ export default function AdminPage() {
                     )
                   }
                   style={{
+                    fontFamily: "Inknut Antiqua, serif",
                     padding: "6px 10px",
                     marginLeft: 10,
                     background: "#ccc",
@@ -667,6 +678,7 @@ export default function AdminPage() {
                     setEditQuantity((prev) => Number(prev) + 1)
                   }
                   style={{
+                    fontFamily: "Inknut Antiqua, serif",
                     padding: "6px 10px",
                     marginLeft: 5,
                     background: "#ccc",
@@ -683,25 +695,27 @@ export default function AdminPage() {
             <div style={{ marginBottom: 15 }}>
               <label
                 style={{
+                  fontFamily: "Inknut Antiqua, serif",
                   fontWeight: "bold",
                   display: "block",
                   marginBottom: 5,
                 }}
               >
-                Category
+                Categoria
               </label>
 
               <select
                 value={editCategory}
                 onChange={(e) => setEditCategory(e.target.value)}
                 style={{
+                  fontFamily: "Inknut Antiqua, serif",
                   width: "100%",
                   padding: 8,
                   borderRadius: 5,
                   border: "1px solid #ccc",
                 }}
               >
-                <option value="">Select Category</option>
+                <option value="">Selectează Categoria</option>
                 {categories.map((cat) => (
                   <option key={cat} value={cat}>
                     {cat}
@@ -713,6 +727,7 @@ export default function AdminPage() {
             <div style={{ marginBottom: 15 }}>
               <label
                 style={{
+                  fontFamily: "Inknut Antiqua, serif",
                   fontWeight: "bold",
                   display: "block",
                   marginBottom: 5,
@@ -722,21 +737,22 @@ export default function AdminPage() {
                   type="checkbox"
                   checked={editTaken}
                   onChange={(e) => setEditTaken(e.target.checked)}
-                  style={{ marginRight: 5 }}
+                  style={{ marginRight: 5, fontFamily: "Inknut Antiqua, serif" }}
                 />
-                Taken
+                Preluare
               </label>
 
               {editTaken && (
                 <div style={{ marginTop: 10 }}>
                   <label
                     style={{
+                      fontFamily: "Inknut Antiqua, serif",
                       fontWeight: "bold",
                       display: "block",
                       marginBottom: 5,
                     }}
                   >
-                    Taken By
+                    De către
                   </label>
                   <input
                     type="text"
@@ -745,6 +761,7 @@ export default function AdminPage() {
                       setEditTakenBy(e.target.value)
                     }
                     style={{
+                      fontFamily: "Inknut Antiqua, serif",
                       width: "100%",
                       padding: 8,
                       borderRadius: 5,
@@ -758,6 +775,7 @@ export default function AdminPage() {
             <div style={{ textAlign: "center", marginTop: 20 }}>
               <button
                 style={{
+                  fontFamily: "Inknut Antiqua, serif",
                   padding: "10px 20px",
                   marginRight: 10,
                   background: "#43b14cff",
@@ -768,11 +786,12 @@ export default function AdminPage() {
                 }}
                 onClick={saveEdit}
               >
-                Save
+                Salvează
               </button>
 
               <button
                 style={{
+                  fontFamily: "Inknut Antiqua, serif",
                   padding: "10px 20px",
                   background: "#f19999ff",
                   border: "none",
@@ -781,17 +800,17 @@ export default function AdminPage() {
                 }}
                 onClick={() => setEditModalOpen(false)}
               >
-                Cancel
+                Anulează
               </button>
             </div>
           </div>
         </div>
       )}
 
-      {/* --- EDIT CATEGORY MODAL --- */}
       {editCategoryModalOpen && (
         <div
           style={{
+            fontFamily: "Inknut Antiqua, serif",
             position: "fixed",
             inset: 0,
             background: "rgba(0,0,0,0.5)",
@@ -802,6 +821,7 @@ export default function AdminPage() {
         >
           <div
             style={{
+              fontFamily: "Inknut Antiqua, serif",
               background: "#fff",
               padding: 20,
               borderRadius: 8,
@@ -809,13 +829,15 @@ export default function AdminPage() {
               textAlign: "center",
             }}
           >
-            <h3>Edit Category</h3>
+            <h3>Editează Categoria</h3>
 
             <input
+            placeholder="Nume nou categorie"
               value={newCategoryName}
               onChange={(e) => setNewCategoryName(e.target.value)}
               style={{
-                width: "100%",
+                fontFamily: "Inknut Antiqua, serif",
+                width: "90%",
                 padding: 8,
                 borderRadius: 5,
                 border: "1px solid #ccc",
@@ -826,6 +848,7 @@ export default function AdminPage() {
             <div style={{ marginTop: 15 }}>
               <button
                 style={{
+                  fontFamily: "Inknut Antiqua, serif",
                   padding: "8px 15px",
                   background: "#43b14c",
                   color: "#fff",
@@ -846,29 +869,30 @@ export default function AdminPage() {
                   loadWishes();
                 }}
               >
-                Save
+                Salvează
               </button>
 
               <button
                 style={{
+                  fontFamily: "Inknut Antiqua, serif",
                   padding: "8px 15px",
                   marginLeft: 10,
-                  background: "#ccc",
+                  background: "#f19999ff",
                   borderRadius: 5,
                 }}
                 onClick={() => setEditCategoryModalOpen(false)}
               >
-                Cancel
+                Anulează
               </button>
             </div>
           </div>
         </div>
       )}
 
-      {/* --- DELETE CATEGORY MODAL --- */}
       {deleteCategoryModalOpen && (
         <div
           style={{
+            fontFamily: "Inknut Antiqua, serif",
             position: "fixed",
             inset: 0,
             background: "rgba(0,0,0,0.5)",
@@ -879,6 +903,7 @@ export default function AdminPage() {
         >
           <div
             style={{
+              fontFamily: "Inknut Antiqua, serif",
               background: "#fff",
               padding: 20,
               borderRadius: 8,
@@ -887,15 +912,16 @@ export default function AdminPage() {
             }}
           >
             <p>
-              Delete category <strong>{categoryToDelete}</strong>?
+              Ștergi categoria <strong>{categoryToDelete}</strong>?
             </p>
 
             <p style={{ fontSize: 12, color: "red" }}>
-              All wishes in this category will be removed.
+              Toate dorințele din această categorie vor fi necategorizate.
             </p>
 
             <button
               style={{
+                fontFamily: "Inknut Antiqua, serif",
                 padding: "8px 15px",
                 background: "#f74949",
                 color: "#fff",
@@ -915,19 +941,21 @@ export default function AdminPage() {
                 loadWishes();
               }}
             >
-              Delete
+              Șterge
             </button>
 
             <button
               style={{
+                fontFamily: "Inknut Antiqua, serif",
                 padding: "8px 15px",
                 marginLeft: 10,
-                background: "#ccc",
+                background: "#43b14c",
+                color: "#fff",
                 borderRadius: 5,
               }}
               onClick={() => setDeleteCategoryModalOpen(false)}
             >
-              Cancel
+              Anulează
             </button>
           </div>
         </div>
